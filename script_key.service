@@ -11,5 +11,5 @@ Environment=PYNPUT_BACKEND_KEYBOARD=uinput
 Environment=PYNPUT_BACKEND_MOUSE=dummy
 Environment=PYTHONUNBUFFERED=1
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/python3 /home/test1/Desktop/test/keylogger.py
+Environment=/usr/bin/python3 /home/test1/Desktop/test/test1.py
 Restart=always
