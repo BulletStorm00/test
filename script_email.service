@@ -1,0 +1,15 @@
+[Unit]
+Description=Email
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+User=root
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/usr/bin/python3 /home/test1/Desktop/email.py
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
