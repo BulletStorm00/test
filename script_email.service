@@ -1,47 +1,19 @@
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email import encoders
+from email.message import EmailMessage
 import os
 
-def trimite_fisier(
-    fisier_path,
-    email_expeditor,
-    parola_expeditor,
-    email_destinatar,
-    subiect="Fisier atasat",
-    mesaj="Fisierul atasat a fost trimis automat."
-):
-    # Creeaza mesajul
-    msg = MIMEMultipart()
-    msg['From'] = email_expeditor
-    msg['To'] = email_destinatar
-    msg['Subject'] = subiect
-    msg.attach(MIMEText(mesaj, 'plain'))
+msg = EmailMessage()
+msg['From'] = "[email protected]"
+msg['To'] = "[email protected]"
+msg['Subject'] = "Fisier atasat"
+msg.set_content("Fisierul atasat a fost trimis automat.")
 
-    # Ataseaza fisierul
-    nume_fisier = os.path.basename(fisier_path)
-    with open(fisier_path, 'rb') as f:
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(f.read())
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', f'attachment; filename={nume_fisier}')
-    msg.attach(part)
+with open("/home/kali/Desktop/raport.pdf", "rb") as f:
+    msg.add_attachment(f.read(), maintype="application", subtype="octet-stream", filename="raport.pdf")
 
-    # Conectare si trimitere (exemplu pentru Gmail)
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
-    server.login(email_expeditor, parola_expeditor)
+    server.login("[email protected]", os.environ.get("EMAIL_PASSWORD"))
     server.send_message(msg)
-    server.quit()
-    print(f"Fisierul '{nume_fisier}' a fost trimis catre {email_destinatar}")
 
-# Exemplu de utilizare
-if __name__ == "__main__":
-    trimite_fisier(
-        fisier_path="/home/kali/Desktop/raport.pdf",
-        email_expeditor="[email protected]",
-        parola_expeditor="app_password_aici",  # NU parola normala!
-        email_destinatar="[email protected]"
-    )
+print("Trimis!")
