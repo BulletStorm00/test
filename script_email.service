@@ -6,10 +6,10 @@ msg = EmailMessage()
 msg['From'] = "[email protected]"
 msg['To'] = "[email protected]"
 msg['Subject'] = "Fisier atasat"
-msg.set_content("Fisierul atasat a fost trimis automat.")
+msg.set_content("Fisierul a fost trimis automat.")
 
-with open("/home/kali/Desktop/raport.pdf", "rb") as f:
-    msg.add_attachment(f.read(), maintype="application", subtype="octet-stream", filename="raport.pdf")
+with open("/home/test1/Desktop/test/rezultat.txt", "rb") as f:
+    msg.add_attachment(f.read(), maintype="application", subtype="octet-stream", filename="rezultat.txt")
 
 with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
